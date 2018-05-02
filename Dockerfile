@@ -1,4 +1,4 @@
-FROM java:openjdk-8-alpine
+FROM openjdk:8u131-jre-alpine
 
 ENV	SERVICE_USER=myuser \
 	SERVICE_UID=10001 \
@@ -9,8 +9,8 @@ RUN	addgroup -g ${SERVICE_GID} ${SERVICE_GROUP} && \
 	adduser -g "${SERVICE_NAME} user" -D -H -G ${SERVICE_GROUP} -s /sbin/nologin -u ${SERVICE_UID} ${SERVICE_USER} && \
 	apk add --update libcap && \
 	mkdir /lib64 && \
-	ln -s /usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/server/libjvm.so /lib/libjvm.so && \
-	ln -s /usr/lib/jvm/java-1.8-openjdk/lib/amd64/jli/libjli.so /lib/libjli.so && \
+	ln -s /usr/lib/jvm/java-1.8-openjdk/jre/lib/ppc64le/server/libjvm.so /lib/libjvm.so && \
+	ln -s /usr/lib/jvm/java-1.8-openjdk/lib/ppc64le/jli/libjli.so /lib/libjli.so && \
 	setcap 'cap_net_bind_service=+ep' $(readlink -f $(which java))
 
 WORKDIR /usr/src/app
